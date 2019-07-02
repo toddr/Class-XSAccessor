@@ -127,7 +127,7 @@ CXSA_HashTable_grow(HashTable* table) {
     UV i;
 
     cxa_realloc(array, newsize, HashTableEntry*);
-    cxa_memzero(&array[oldsize], (newsize-oldsize)*sizeof(HashTableEntry*));
+    cxa_memzero(&array[oldsize], newsize-oldsize, HashTableEntry*);
 
     /*Renew(array, newsize, HashTableEntry*);
     Zero(&array[oldsize], newsize - oldsize, HashTableEntry*);

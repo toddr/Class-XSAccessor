@@ -5,9 +5,6 @@
 /* for the STRLEN typedef, for better or for worse */
 #include "perl.h"
 
-void* _cxa_memcpy(void *dest, void *src, STRLEN size);
-void* _cxa_memzero(void *ptr, STRLEN size);
-
 /* these macros are really what you should be calling: */
 
 #define cxa_free(ptr) Safefree(ptr)
@@ -15,8 +12,7 @@ void* _cxa_memzero(void *ptr, STRLEN size);
 #define cxa_zmalloc(v,n,t) Newxz(v,n,t)
 #define cxa_realloc(v,n,t) Renew(v,n,t)
 #define cxa_memcpy(dest, src, n, t) Copy(src, dest, n, t)
-
-#define cxa_memzero(ptr, size) _cxa_memzero(ptr, size)
+#define cxa_memzero(ptr, n, t) Zero(ptr, n, t)
 
 /* TODO: A function call on every memory operation seems expensive.
  *       Right now, it's not so bad and benchmarks show no harm done.
