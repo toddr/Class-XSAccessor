@@ -370,7 +370,7 @@ STMT_START {                                                                 \
   autoxs_hashkey *hk_ptr = get_hashkey(aTHX_ obj_hash_key, obj_hash_key_len);\
   INSTALL_NEW_CV_WITH_PTR(name, xsub, hk_ptr);                               \
   cxa_malloc(hk_ptr->key, obj_hash_key_len+1, char);                         \
-  cxa_memcpy(hk_ptr->key, obj_hash_key, obj_hash_key_len);                   \
+  cxa_memcpy(hk_ptr->key, obj_hash_key, obj_hash_key_len, char);             \
   hk_ptr->key[obj_hash_key_len] = 0;                                         \
   hk_ptr->len = obj_hash_key_len;                                            \
   PERL_HASH(hk_ptr->hash, obj_hash_key, obj_hash_key_len);                   \

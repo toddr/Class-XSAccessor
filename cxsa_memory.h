@@ -14,8 +14,8 @@ void* _cxa_memzero(void *ptr, STRLEN size);
 #define cxa_malloc(v,n,t) Newx(v,n,t)
 #define cxa_zmalloc(v,n,t) Newxz(v,n,t)
 #define cxa_realloc(v,n,t) Renew(v,n,t)
+#define cxa_memcpy(dest, src, n, t) Copy(src, dest, n, t)
 
-#define cxa_memcpy(dest, src, size) _cxa_memcpy(dest, src, size)
 #define cxa_memzero(ptr, size) _cxa_memzero(ptr, size)
 
 /* TODO: A function call on every memory operation seems expensive.
