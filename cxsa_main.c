@@ -32,7 +32,7 @@ STATIC
 autoxs_hashkey *
 _new_hashkey() {
   autoxs_hashkey * retval;
-  retval = (autoxs_hashkey *) cxa_malloc( sizeof(autoxs_hashkey) );
+  cxa_malloc( retval, 1, autoxs_hashkey );
   retval->next = NULL;
 
   if (CXSAccessor_last_hashkey != NULL) { /* apend to list */

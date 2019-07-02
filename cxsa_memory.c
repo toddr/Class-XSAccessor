@@ -5,16 +5,8 @@ void* _cxa_realloc(void *ptr, STRLEN size) {
     return realloc(ptr, size);
 }
 
-void* _cxa_malloc(STRLEN size) {
-    return malloc(size);
-}
-
 void* _cxa_zmalloc(STRLEN size) {
     return calloc(1, size);
-}
-
-void _cxa_free(void *ptr) {
-    free(ptr);
 }
 
 void* _cxa_memcpy(void *dest, void *src, STRLEN size) {

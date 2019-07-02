@@ -6,18 +6,17 @@
 #include "perl.h"
 
 void* _cxa_realloc(void *ptr, STRLEN size);
-void* _cxa_malloc(STRLEN size);
 void* _cxa_zmalloc(STRLEN size);
-void _cxa_free(void *ptr);
 void* _cxa_memcpy(void *dest, void *src, STRLEN size);
 void* _cxa_memzero(void *ptr, STRLEN size);
 
 /* these macros are really what you should be calling: */
 
-#define cxa_free(ptr) _cxa_free(ptr)
-#define cxa_realloc(ptr, size) _cxa_realloc(ptr, size)
-#define cxa_malloc(size) _cxa_malloc(size)
+#define cxa_free(ptr) Safefree(ptr)
+#define cxa_malloc(v,n,t) Newx(v,n,t)
 #define cxa_zmalloc(size) _cxa_zmalloc(size)
+
+#define cxa_realloc(ptr, size) _cxa_realloc(ptr, size)
 #define cxa_memcpy(dest, src, size) _cxa_memcpy(dest, src, size)
 #define cxa_memzero(ptr, size) _cxa_memzero(ptr, size)
 

@@ -99,9 +99,9 @@ CXSA_HashTable_store(HashTable* table, const char* key, STRLEN len, void * value
         entry->value = value;
     } else {
         const UV index = CXSA_string_hash(key, len) & (table->size - 1);
-        entry = (HashTableEntry*)cxa_malloc(sizeof(HashTableEntry));
+        cxa_malloc(entry, 1, HashTableEntry);
+        cxa_malloc( entry->key, (len+1), char );
 
-        entry->key = (char*)cxa_malloc( (len+1) );
         cxa_memcpy((void*)entry->key, (void*)key, len+1);
         /*Copy(key, entry->key, len+1, char);*/
         entry->len   = len;
