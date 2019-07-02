@@ -5,7 +5,6 @@
 /* for the STRLEN typedef, for better or for worse */
 #include "perl.h"
 
-void* _cxa_realloc(void *ptr, STRLEN size);
 void* _cxa_memcpy(void *dest, void *src, STRLEN size);
 void* _cxa_memzero(void *ptr, STRLEN size);
 
@@ -14,8 +13,8 @@ void* _cxa_memzero(void *ptr, STRLEN size);
 #define cxa_free(ptr) Safefree(ptr)
 #define cxa_malloc(v,n,t) Newx(v,n,t)
 #define cxa_zmalloc(v,n,t) Newxz(v,n,t)
+#define cxa_realloc(v,n,t) Renew(v,n,t)
 
-#define cxa_realloc(ptr, size) _cxa_realloc(ptr, size)
 #define cxa_memcpy(dest, src, size) _cxa_memcpy(dest, src, size)
 #define cxa_memzero(ptr, size) _cxa_memzero(ptr, size)
 

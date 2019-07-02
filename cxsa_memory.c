@@ -1,10 +1,6 @@
 
 #include "cxsa_memory.h"
 
-void* _cxa_realloc(void *ptr, STRLEN size) {
-    return realloc(ptr, size);
-}
-
 void* _cxa_memcpy(void *dest, void *src, STRLEN size) {
     return memcpy(dest, src, size);
 }
