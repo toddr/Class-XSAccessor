@@ -6,7 +6,6 @@
 #include "perl.h"
 
 void* _cxa_realloc(void *ptr, STRLEN size);
-void* _cxa_zmalloc(STRLEN size);
 void* _cxa_memcpy(void *dest, void *src, STRLEN size);
 void* _cxa_memzero(void *ptr, STRLEN size);
 
@@ -14,7 +13,7 @@ void* _cxa_memzero(void *ptr, STRLEN size);
 
 #define cxa_free(ptr) Safefree(ptr)
 #define cxa_malloc(v,n,t) Newx(v,n,t)
-#define cxa_zmalloc(size) _cxa_zmalloc(size)
+#define cxa_zmalloc(v,n,t) Newxz(v,n,t)
 
 #define cxa_realloc(ptr, size) _cxa_realloc(ptr, size)
 #define cxa_memcpy(dest, src, size) _cxa_memcpy(dest, src, size)

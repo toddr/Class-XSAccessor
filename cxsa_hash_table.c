@@ -30,13 +30,13 @@ CXSA_HashTable_new(UV size, NV threshold) {
         croak("invalid threshold: expected 0.0 < threshold < 1.0, got %f", threshold);
     }
 
-    table = (HashTable*)cxa_zmalloc(sizeof(HashTable));
+    cxa_zmalloc(table, 1, HashTable);
 
     table->size = size;
     table->threshold = threshold;
     table->items = 0;
 
-    table->array = (HashTableEntry**)cxa_zmalloc(size * sizeof(HashTableEntry*));
+    cxa_zmalloc(table->array, size, HashTableEntry*);
 
     return table;
 }
