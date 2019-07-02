@@ -1,5 +1,9 @@
 Revision history for Perl extension Class-XSAccessor.
 
+1.20 Next
+  - Add travis monitoring to repo.
+  - Make library more portable using perl library memory management calls.
+
 1.19  Fri Nov 22 07:15 2013
   - Require Time::HiRes explicitly because CentOS cripples the base
     perl install.
