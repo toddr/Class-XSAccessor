@@ -19,14 +19,17 @@ sub new { my $c = shift; bless {@_}, ref($c) || $c }
 
 package main;
 
-use Benchmark qw(cmpthese timethese :hireswallclock);
+use Dumbbench;
+#use Dumbbench::BoxPlot;
 
-my $count = shift || -4;
-
+my $bench = Dumbbench->new(
+  target_rel_precision => 0.0005, # seek ~0.5%
+  initial_runs         => 3000,    # the higher the more reliable
+);
 print "Constructor benchmark:", $/;
 
-cmpthese(timethese($count, {
-    class_xs_accessor => sub {
+$bench->add_instances(
+    Dumbbench::Instance::PerlSub->new(name => 'class_xs_accessor', code => sub {
         my $obj;
         $obj = WithClassXSAccessor->new();
         $obj = WithClassXSAccessor->new();
@@ -38,8 +41,8 @@ cmpthese(timethese($count, {
         $obj = WithClassXSAccessor->new();
         $obj = WithClassXSAccessor->new();
         $obj = WithClassXSAccessor->new();
-    },
-    std_class => sub {
+    }),
+    Dumbbench::Instance::PerlSub->new(name => 'std_class', code => sub {
         my $obj;
         $obj = WithStdClass->new();
         $obj = WithStdClass->new();
@@ -51,8 +54,8 @@ cmpthese(timethese($count, {
         $obj = WithStdClass->new();
         $obj = WithStdClass->new();
         $obj = WithStdClass->new();
-    },
-    class_xs_accessor_args => sub {
+    }),
+    Dumbbench::Instance::PerlSub->new(name => 'class_xs_accessor_args', code => sub {
         my $obj;
         $obj = WithClassXSAccessor->new(foo => 'bar', baz => 'quux');
         $obj = WithClassXSAccessor->new(foo => 'bar', baz => 'quux');
@@ -64,8 +67,8 @@ cmpthese(timethese($count, {
         $obj = WithClassXSAccessor->new(foo => 'bar', baz => 'quux');
         $obj = WithClassXSAccessor->new(foo => 'bar', baz => 'quux');
         $obj = WithClassXSAccessor->new(foo => 'bar', baz => 'quux');
-    },
-    std_class_args => sub {
+    }),
+    Dumbbench::Instance::PerlSub->new(name => 'std_class_args', code => sub {
         my $obj;
         $obj = WithStdClass->new(foo => 'bar', baz => 'quux');
         $obj = WithStdClass->new(foo => 'bar', baz => 'quux');
@@ -77,5 +80,8 @@ cmpthese(timethese($count, {
         $obj = WithStdClass->new(foo => 'bar', baz => 'quux');
         $obj = WithStdClass->new(foo => 'bar', baz => 'quux');
         $obj = WithStdClass->new(foo => 'bar', baz => 'quux');
-    },
-}));
+    }),
+);
+
+$bench->run;
+$bench->report;
